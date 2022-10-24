@@ -205,9 +205,76 @@ public class HumanResources {
 
     }
 
-    // public static void searchingEmployee(){
-    // for (int )
-    // }
+    public static void searchingEmployee() {
+        System.out.println("1. Tim nhan vien theo MSNV: ");
+        System.out.println("2. Tim nhan vien theo ten: ");
+        Scanner inputSearching = new Scanner(System.in);
+        int choice = 0;
+        do {
+            try {
+                System.out.print("Chi duoc chon 1 hoac 2: ");
+                choice = Integer.parseInt(inputSearching.nextLine());
+
+            } catch (Exception ex) {
+                System.out.println("Ban nhap loi");
+
+            }
+        } while (choice != 0 && choice != 1 && choice != 2);
+
+        switch (choice) {
+            case 1:
+                // Search by employee id
+                System.out.println("Nhap ma nhan vien: ");
+                String employeeId = inputSearching.nextLine();
+                Boolean employeeCheckID = false;
+                // Searching
+                for (int i = 0; i < employees.size(); i++) {
+                    if (employees.get(i).getId().equals(employeeId)) {
+                        System.out.println("Nhan vien ban can tim: ");
+                        System.out.printf(fmtEmp, "MSNV", "Name", "Age", "Grade", "Day of Join", "Department",
+                                "Day Off", "OT/Title",
+                                "Salary");
+                        System.out.println();
+                        String dashLineEmp = "-".repeat(120);
+                        System.out.println(dashLineEmp);
+                        employees.get(i).displayInformation();
+                        System.out.println();
+                        employeeCheckID = true;
+                    }
+                }
+                if (employeeCheckID == false) { // There's no employee at all
+                    System.out.println("Xin loi khong co thong tin nhan vien ban can tim ");
+                }
+                break;
+            case 2:
+                System.out.println("Nhap ten nhan vien");
+                String employeeName = inputSearching.nextLine();
+                Boolean employeeChecName = false;
+                for (int i = 0; i < employees.size(); i++) {
+                    if (employees.get(i).getName().contains(employeeName)) {
+                        System.out.println("Nhan vien ban can tim: ");
+                        System.out.printf(fmtEmp, "MSNV", "Name", "Age", "Grade", "Day of Join", "Department",
+                                "Day Off", "OT/Title",
+                                "Salary");
+                        System.out.println();
+                        String dashLineEmp = "-".repeat(120);
+                        System.out.println(dashLineEmp);
+                        employees.get(i).displayInformation();
+                        System.out.println();
+                        employeeChecName = true;
+                    }
+                }
+                if (employeeChecName == false) { // There's no employee at all
+                    System.out.println("Xin loi khong co thong tin nhan vien ban can tim ");
+                }
+                break;
+
+        }
+    }
+
+    public static void displaySalaryAll() {
+
+    }
 
     public static void main(String[] args) {
         Scanner input = new Scanner(System.in);
@@ -221,8 +288,21 @@ public class HumanResources {
             System.out.println("6. Hhien thi bang luong cua nhan vien toan cong ty.");
             System.out.println("7. Hien thi bang luong cua nhan vien toan cong ty theo thu tu tang dan.");
             System.out.println("8. Thoat chuong trinh.");
-            System.out.print("Lua chon cua ban: ");
-            int choice = input.nextInt();
+
+            int choice = 0;
+            do {
+                try {
+                    System.out.print("Lua chon cua ban: ");
+                    choice = Integer.parseInt(input.nextLine());
+
+                } catch (Exception ex) {
+                    System.out.println("Ban nhap loi");
+
+                }
+
+            } while (choice != 0 && choice != 1 && choice != 2 && choice != 3 && choice != 4 && choice != 5
+                    && choice != 6
+                    && choice != 7 && choice != 8);
             switch (choice) {
                 case 1:
                     displayEmployee();
@@ -237,7 +317,8 @@ public class HumanResources {
                     addEmployees();
                     break;
                 case 5:
-                    // searchingEmployee();
+                    searchingEmployee();
+                    break;
                 case 8:
                     System.exit(0);
             }
