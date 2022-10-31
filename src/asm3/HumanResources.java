@@ -4,6 +4,8 @@ import static asm3.Employee.fmtEmp;
 import static asm3.Department.fmtDept;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Scanner;
 
 public class HumanResources {
@@ -25,7 +27,7 @@ public class HumanResources {
         // Thuộc tính: mã nhân viên, tên nhân viên, tuổi nhân viên, hệ số lương, ngày
         // vào làm, bộ phận làm việc, số ngày nghỉ phép
         // MSNV,Ten,Tuoi,He so LUong, Ngay vao lam, Phong ban, so ngay nghi
-        employees.add(new Employee("E001", "Nguyen Van A", 23, 4.2, "23/01/2022", "Maketing", 4, 4, 0));
+        employees.add(new Employee("E001", "Nguyen Van A", 23, 6.2, "23/01/2022", "Maketing", 4, 5, 0));
         employees.add(new Employee("E002", "Nguyen Van B", 25, 5.2, "23/01/2022", "Cong nghe thong tin", 4, 1, 0));
         employees.add(new Employee("E002", "Nguyen Van C", 25, 5.2, "23/01/2022", "Cong nghe thong tin", 4, 2, 0));
         employees.add(new Manager("M002", "Nguyen Van D", 40, 5.2, "23/01/2012", "Hanh chinh nhan su", 4,
@@ -273,7 +275,57 @@ public class HumanResources {
     }
 
     public static void displaySalaryAll() {
+        Collections.sort(employees, new Comparator<Staff>() {
+            @Override
+            public int compare(Staff o1, Staff o2) {
+                double value1 = o1.calculateSalary();
+                double value2 = o2.calculateSalary();
+                if (value1 > value2) {
+                    return 1;
+                } else if (value1 < value2) {
+                    return -1;
+                } else {
+                    return 0;
+                }
+            }
+        });
+        System.out.printf(fmtEmp, "MSNV", "Name", "Age", "Grade", "Day of Join", "Department",
+                "Day Off", "OT/Title",
+                "Salary");
+        System.out.println();
+        String dashLineEmp = "-".repeat(150);
+        System.out.println(dashLineEmp);
+        for (int i = 0; i < employees.size(); i++) {
+            employees.get(i).displayInformation();
+            System.out.println();
+        }
+    }
 
+    public static void displaySalaryAllDecending() {
+        Collections.sort(employees, new Comparator<Staff>() {
+            @Override
+            public int compare(Staff o1, Staff o2) {
+                double value1 = o1.calculateSalary();
+                double value2 = o2.calculateSalary();
+                if (value1 < value2) {
+                    return 1;
+                } else if (value1 > value2) {
+                    return -1;
+                } else {
+                    return 0;
+                }
+            }
+        });
+        System.out.printf(fmtEmp, "MSNV", "Name", "Age", "Grade", "Day of Join", "Department",
+                "Day Off", "OT/Title",
+                "Salary");
+        System.out.println();
+        String dashLineEmp = "-".repeat(150);
+        System.out.println(dashLineEmp);
+        for (int i = 0; i < employees.size(); i++) {
+            employees.get(i).displayInformation();
+            System.out.println();
+        }
     }
 
     public static void main(String[] args) {
@@ -318,6 +370,12 @@ public class HumanResources {
                     break;
                 case 5:
                     searchingEmployee();
+                    break;
+                case 6:
+                    displaySalaryAll();
+                    break;
+                case 7:
+                    displaySalaryAllDecending();
                     break;
                 case 8:
                     System.exit(0);

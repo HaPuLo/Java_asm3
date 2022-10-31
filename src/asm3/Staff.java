@@ -12,6 +12,14 @@ public abstract class Staff {
     private int dayOff;
     private double salary;
 
+    public double getSalary() {
+        return salary;
+    }
+
+    public void setSalary(double salary) {
+        this.salary = salary;
+    }
+
     public Staff(String id, String name, int age, double gradeSalary, String dateOnBoard, String department,
             int dayOff, double salary) {
         this.id = id;
@@ -79,6 +87,8 @@ public abstract class Staff {
     public void setDayOff(int dayOff) {
         this.dayOff = dayOff;
     }
+
+    public abstract double calculateSalary();
 
     public abstract void displayInformation();
 
